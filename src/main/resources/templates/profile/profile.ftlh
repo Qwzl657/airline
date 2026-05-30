@@ -58,7 +58,7 @@
                                         Место: ${b.seatNumber} (${b.seatClass})
                                     </div>
                                     <div class="small text-muted">
-                                        Вылет: ${b.departureTime?string("dd MMM yyyy HH:mm")}
+                                        Вылет: ${b.departureTimeFormatted}
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-end">
@@ -66,8 +66,7 @@
                                         $${b.price?string("0.00")}
                                     </div>
                                     <div class="small text-muted">
-                                        Забронировано:
-                                        ${b.bookedAt?string("dd.MM.yyyy")}
+                                        Забронировано: ${b.bookedAtFormatted}
                                     </div>
                                 </div>
                             </div>

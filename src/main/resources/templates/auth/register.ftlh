@@ -11,8 +11,6 @@
                     <#if emailError??>
                         <div class="alert alert-danger">${emailError}</div>
                     </#if>
-
-                    <%-- id="register-form" — для поиска через getElementById (Lesson #66) --%>
                     <form id="register-form" action="/auth/register" method="post">
                         <input type="hidden"
                                name="${_csrf.parameterName}"
@@ -61,7 +59,6 @@
         </div>
     </div>
 
-    <%-- Lesson #66: подключаем JS валидацию --%>
     <script src="/static/js/validation.js"></script>
 
 </@layout.base>
