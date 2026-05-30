@@ -25,17 +25,14 @@ public class SecurityConfig {
                                 "/auth/**",
                                 "/static/**",
                                 "/uploads/**",
-                                "/h2-console/**"
+                                "/h2-console/**",
+                                "/api/**"
                         ).permitAll()
 
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-
                         .requestMatchers("/company/**").hasRole("COMPANY")
-
                         .requestMatchers("/bookings/**").hasRole("USER")
-
                         .requestMatchers("/profile/**").authenticated()
-
                         .anyRequest().authenticated()
                 )
 
