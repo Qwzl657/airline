@@ -135,13 +135,12 @@ public class FlightServiceImpl implements FlightService {
         log.info("Создан рейс: {} компания: {}", flightNumber, company.getFullName());
     }
 
-    @Override
     public Page<FlightDto> getCompanyFlights(String email, Pageable pageable) {
         User company = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException(
                         "Компания не найдена: " + email));
         return flightRepository.findByCompanyId(company.getId(), pageable)
-                .map(this::toDto);
+                .map(this::toDtoWithTickets); // было toDto
     }
 
     private String generateFlightNumber(String companyName) {
@@ -255,4 +254,5 @@ public class FlightServiceImpl implements FlightService {
                 .freeBusiness(freeBusiness)
                 .build();
     }
+
 }

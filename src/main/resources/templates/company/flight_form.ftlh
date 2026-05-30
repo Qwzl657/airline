@@ -12,7 +12,6 @@
                         <div class="alert alert-danger">${flightError}</div>
                     </#if>
 
-                    <%-- id="flight-form" — для поиска через getElementById (Lesson #66) --%>
                     <form id="flight-form" action="/company/flights/new" method="post">
                         <input type="hidden"
                                name="${_csrf.parameterName}"
@@ -68,7 +67,6 @@
         </div>
     </div>
 
-    <%-- Lesson #66: подключаем JS валидацию --%>
     <script src="/static/js/validation.js"></script>
 
 </@layout.base>

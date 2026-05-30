@@ -17,23 +17,15 @@
 
             <div class="row mb-3">
                 <div class="col-md-5 text-center">
-                    <div class="fs-3 fw-bold">
-                        ${flight.departureTime?string("HH:mm")}
-                    </div>
+                    <div class="fs-3 fw-bold">${flight.departureTimeFormatted}</div>
                     <div class="fs-5">${flight.departureCity}</div>
-                    <div class="text-muted">
-                        ${flight.departureTime?string("dd MMMM yyyy")}
-                    </div>
+                    <div class="text-muted">${flight.departureDateLong}</div>
                 </div>
                 <div class="col-md-2 text-center align-self-center fs-2">✈</div>
                 <div class="col-md-5 text-center">
-                    <div class="fs-3 fw-bold">
-                        ${flight.arrivalTime?string("HH:mm")}
-                    </div>
+                    <div class="fs-3 fw-bold">${flight.arrivalTimeFormatted}</div>
                     <div class="fs-5">${flight.arrivalCity}</div>
-                    <div class="text-muted">
-                        ${flight.arrivalTime?string("dd MMMM yyyy")}
-                    </div>
+                    <div class="text-muted">${flight.arrivalDateLong}</div>
                 </div>
             </div>
         </div>
@@ -52,13 +44,11 @@
                                name="${_csrf.parameterName}"
                                value="${_csrf.token}"/>
                         <button type="submit"
-                                class="btn seat-btn
-                            <#if ticket.booked>booked-seat<#else>free-seat</#if>"
+                                class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
                                 <#if ticket.booked>disabled</#if>
                                 <#if !userRole?? || userRole != "ROLE_USER">disabled</#if>>
-                            ${ticket.seatNumber}
-                            <br>
-                            <small>$${ticket.price?string("0")}</small>
+                            ${ticket.seatNumber}<br>
+                            <small>$${ticket.price?string.number}</small>
                         </button>
                     </form>
                 </#if>
@@ -74,13 +64,11 @@
                                name="${_csrf.parameterName}"
                                value="${_csrf.token}"/>
                         <button type="submit"
-                                class="btn seat-btn
-                            <#if ticket.booked>booked-seat<#else>free-seat</#if>"
+                                class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
                                 <#if ticket.booked>disabled</#if>
                                 <#if !userRole?? || userRole != "ROLE_USER">disabled</#if>>
-                            ${ticket.seatNumber}
-                            <br>
-                            <small>$${ticket.price?string("0")}</small>
+                            ${ticket.seatNumber}<br>
+                            <small>$${ticket.price?string.number}</small>
                         </button>
                     </form>
                 </#if>
@@ -92,8 +80,8 @@
             <span class="btn booked-seat btn-sm disabled">Занято</span>
             <#if !userRole?? || userRole != "ROLE_USER">
                 <span class="text-muted small align-self-center">
-                Войдите как пользователь чтобы забронировать
-            </span>
+                    Войдите как пользователь чтобы забронировать
+                </span>
             </#if>
         </div>
     </#if>
