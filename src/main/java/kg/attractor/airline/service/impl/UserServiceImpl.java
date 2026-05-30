@@ -133,4 +133,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .bookingCount(count)
                 .build();
     }
+
+    @Override
+    @Transactional
+    public void updateLogo(String email, String fileName) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException(
+                        "Пользователь не найден: " + email));
+        user.setLogo(fileName);
+        userRepository.save(user);
+        log.info("Логотип обновлён для: {}", email);
+    }
 }
