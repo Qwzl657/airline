@@ -1,0 +1,178 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: create-users
+      author: airline
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: email
+                  type: VARCHAR(150)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: VARCHAR(200)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: role
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: logo
+                  type: VARCHAR(255)
+                  defaultValue: 'default.png'
+
+              - column:
+                  name: enabled
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create-flights
+      author: airline
+      changes:
+        - createTable:
+            tableName: flights
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: flight_number
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: company_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_flight_company
+                    references: users(id)
+              - column:
+                  name: departure_city
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: arrival_city
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: departure_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: arrival_time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create-tickets
+      author: airline
+      changes:
+        - createTable:
+            tableName: tickets
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: flight_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_ticket_flight
+                    references: flights(id)
+
+              - column:
+                  name: seat_number
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: seat_class
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: DOUBLE
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: booked
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+
+  - changeSet:
+      id: create-bookings
+      author: airline
+      changes:
+        - createTable:
+            tableName: bookings
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_booking_user
+                    references: users(id)
+              - column:
+                  name: ticket_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_booking_ticket
+                    references: tickets(id)
+              - column:
+                  name: booked_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
