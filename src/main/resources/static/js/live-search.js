@@ -12,12 +12,10 @@ window.addEventListener('load', function () {
     if (!resultsContainer) return;
 
     const inputs = form.querySelectorAll('input');
-
     inputs.forEach(function (input) {
         input.addEventListener('input', function () {
 
             clearTimeout(searchTimer);
-
             searchTimer = setTimeout(function () {
                 performSearch(form, resultsContainer);
             }, DEBOUNCE_MS);
@@ -28,8 +26,8 @@ window.addEventListener('load', function () {
 async function performSearch(form, container) {
 
     const data   = Object.fromEntries(new FormData(form));
-
     const params = new URLSearchParams();
+
     if (data.departureCity) params.append('departureCity', data.departureCity);
     if (data.arrivalCity)   params.append('arrivalCity',   data.arrivalCity);
     if (data.dateFrom)      params.append('dateFrom',      data.dateFrom);
@@ -65,6 +63,8 @@ function renderResults(page, container) {
         return;
     }
 
+    const userRole = document.body.dataset.userRole || 'GUEST';
+
     let html = '';
 
     page.content.forEach(function (flight) {
@@ -73,6 +73,26 @@ function renderResults(page, container) {
         const arrTime = formatTime(flight.arrivalTime);
         const depDate = formatDate(flight.departureTime);
         const logo    = flight.companyLogo || 'default.png';
+
+        let bookBtn = '';
+        if (userRole === 'GUEST') {
+            bookBtn =
+                '<a href="/auth/login" class="btn btn-success btn-sm">' +
+                'Забронировать' +
+                '</a>';
+        } else if (userRole === 'ROLE_USER') {
+            bookBtn =
+                '<a href="/flights/' + flight.id + '"' +
+                ' class="btn btn-success btn-sm">' +
+                'Забронировать' +
+                '</a>';
+        } else {
+
+            bookBtn =
+                '<button class="btn btn-secondary btn-sm" disabled>' +
+                'Забронировать' +
+                '</button>';
+        }
 
         html +=
             '<div class="card mb-3 flight-card">' +
@@ -87,7 +107,7 @@ function renderResults(page, container) {
             '<div class="small text-muted">' + flight.companyName + '</div>' +
             '</div>' +
 
-            '<div class="col-md-5">' +
+            '<div class="col-md-4">' +
             '<div class="d-flex align-items-center gap-3">' +
             '<div class="text-center">' +
             '<div class="fw-bold fs-5">' + depTime + '</div>' +
@@ -111,11 +131,12 @@ function renderResults(page, container) {
             '</div>' +
             '</div>' +
 
-            '<div class="col-md-2 text-end">' +
+            '<div class="col-md-3 text-end d-flex flex-column gap-1">' +
             '<a href="/flights/' + flight.id + '"' +
             ' class="btn btn-outline-primary btn-sm">' +
             'Подробнее' +
             '</a>' +
+            bookBtn +
             '</div>' +
 
             '</div>' +
@@ -168,8 +189,8 @@ function formatTime(isoString) {
 
 function formatDate(isoString) {
     if (!isoString) return '';
-    const date    = new Date(isoString);
-    const months  = ['Jan','Feb','Mar','Apr','May','Jun',
+    const date   = new Date(isoString);
+    const months = ['Jan','Feb','Mar','Apr','May','Jun',
         'Jul','Aug','Sep','Oct','Nov','Dec'];
     return date.getDate() + ' ' +
         months[date.getMonth()] + ' ' +
