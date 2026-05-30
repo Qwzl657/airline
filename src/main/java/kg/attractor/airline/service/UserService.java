@@ -16,4 +16,6 @@ public interface UserService {
     void createCompany(CompanyCreateDto dto);
 
     void toggleFreeze(Long companyId);
+
+    void updateLogo(String email, String fileName);
 }
