@@ -6,6 +6,7 @@
         <div class="col-md-4">
             <div class="card shadow-sm mb-3">
                 <div class="card-body text-center">
+
                     <#if user.role?string == "COMPANY">
                         <img src="/uploads/logos/${user.logo!'default.png'}"
                              alt="Логотип"
@@ -36,46 +37,59 @@
         </div>
 
         <div class="col-md-8">
-            <h5>История бронирований</h5>
 
-            <#if bookings?has_content>
-                <#list bookings as b>
-                    <div class="card mb-2 flight-card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-2 text-center">
-                                    <img src="/uploads/logos/${b.companyLogo!'default.png'}"
-                                         alt="${b.companyName}"
-                                         style="max-height:40px;"
-                                         onerror="this.src='/uploads/logos/default.png'">
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="fw-bold">
-                                        ${b.departureCity} → ${b.arrivalCity}
+            <#if user.role?string == "USER">
+                <h5>История бронирований</h5>
+
+                <#if bookings?has_content>
+                    <#list bookings as b>
+                        <div class="card mb-2 flight-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        <img src="/uploads/logos/${b.companyLogo!'default.png'}"
+                                             alt="${b.companyName}"
+                                             style="max-height:40px;"
+                                             onerror="this.src='/uploads/logos/default.png'">
                                     </div>
-                                    <div class="small text-muted">
-                                        Рейс: ${b.flightNumber} |
-                                        Место: ${b.seatNumber} (${b.seatClass})
+                                    <div class="col-md-6">
+                                        <div class="fw-bold">
+                                            ${b.departureCity} → ${b.arrivalCity}
+                                        </div>
+                                        <div class="small text-muted">
+                                            Рейс: ${b.flightNumber} |
+                                            Место: ${b.seatNumber} (${b.seatClass})
+                                        </div>
+                                        <div class="small text-muted">
+                                            Вылет: ${b.departureTimeFormatted}
+                                        </div>
                                     </div>
-                                    <div class="small text-muted">
-                                        Вылет: ${b.departureTimeFormatted}
-                                    </div>
-                                </div>
-                                <div class="col-md-4 text-end">
-                                    <div class="fw-bold text-primary">
-                                        $${b.price?string("0.00")}
-                                    </div>
-                                    <div class="small text-muted">
-                                        Забронировано: ${b.bookedAtFormatted}
+                                    <div class="col-md-4 text-end">
+                                        <div class="fw-bold text-primary">
+                                            $${b.price?string.number}
+                                        </div>
+                                        <div class="small text-muted">
+                                            Забронировано: ${b.bookedAtFormatted}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </#list>
+                <#else>
+                    <div class="alert alert-info">
+                        У вас пока нет бронирований.
                     </div>
-                </#list>
-            <#else>
-                <div class="alert alert-info">У вас пока нет бронирований.</div>
+                </#if>
+
+            <#elseif user.role?string == "COMPANY">
+                <h5>Управление рейсами</h5>
+                <div class="alert alert-info">
+                    Для просмотра и создания рейсов перейдите в раздел
+                    <a href="/company/flights" class="alert-link">Мои рейсы</a>.
+                </div>
             </#if>
+
         </div>
     </div>
 
