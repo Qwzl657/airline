@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
@@ -30,7 +31,9 @@ public class AdminController {
         Page<UserDto> companies = userService.getCompanies(pageable);
 
         model.addAttribute("companies", companies);
-        model.addAttribute("companyCreateDto", new CompanyCreateDto());
+        if (!model.containsAttribute("companyCreateDto")) {
+            model.addAttribute("companyCreateDto", new CompanyCreateDto());
+        }
         return "admin/dashboard";
     }
 
@@ -60,11 +63,13 @@ public class AdminController {
     }
 
     @PostMapping("/companies/{id}/toggle")
-    public String toggleFreeze(@PathVariable Long id, Model model) {
+    public String toggleFreeze(
+            @PathVariable Long id,
+            RedirectAttributes redirectAttrs) {
         try {
             userService.toggleFreeze(id);
         } catch (Exception e) {
-            model.addAttribute("freezeError", e.getMessage());
+            redirectAttrs.addFlashAttribute("freezeError", e.getMessage());
         }
         return "redirect:/admin";
     }
