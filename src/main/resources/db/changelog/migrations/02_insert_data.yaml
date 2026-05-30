@@ -110,7 +110,6 @@ databaseChangeLog:
                   value: 'SKY-001'
               - column:
                   name: company_id
-                  # Подзапрос — не зависит от порядка вставки и числовых id
                   valueComputed: "(SELECT id FROM users WHERE email = 'skyline@airline.com')"
               - column:
                   name: departure_city
