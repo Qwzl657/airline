@@ -6,8 +6,7 @@
         <div class="card-body">
             <h5 class="card-title">Поиск рейсов</h5>
 
-            <%-- id="search-form" — нужен для localStorage (Lesson #70)
-            и для живого поиска (Lesson #68) --%>
+            <%-- id="search-form" — localStorage (Lesson #70) + живой поиск (Lesson #68) --%>
             <form id="search-form" action="/flights" method="get">
                 <div class="row g-2">
                     <div class="col-md-3">
@@ -43,8 +42,7 @@
         </div>
     </div>
 
-    <%-- id="flights-results" — сюда живой поиск вставляет результаты (Lesson #68)
-    при первой загрузке показываем серверный результат --%>
+    <%-- id="flights-results" — живой поиск вставляет сюда результаты (Lesson #68) --%>
     <div id="flights-results">
 
         <#if flightsPage.content?has_content>
@@ -61,7 +59,7 @@
                                 <div class="small text-muted">${flight.companyName}</div>
                             </div>
 
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="text-center">
                                         <div class="fw-bold fs-5">
@@ -103,11 +101,48 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-2 text-end">
+                            <%--
+                            Кнопка "Забронировать":
+                            - USER авторизован → /flights/{id} (выбор места)
+                            - Не авторизован → /auth/login
+                            - ADMIN / COMPANY → кнопка disabled (задание: недоступна)
+                            Стек: Spring Security — SPRING_SECURITY_CONTEXT
+                            --%>
+                            <div class="col-md-3 text-end d-flex flex-column gap-1">
                                 <a href="/flights/${flight.id}"
                                    class="btn btn-outline-primary btn-sm">
                                     Подробнее
                                 </a>
+
+                                <#assign isUser = false>
+                                <#assign isGuest = true>
+                                <#if SPRING_SECURITY_CONTEXT??>
+                                    <#assign isGuest = false>
+                                    <#list SPRING_SECURITY_CONTEXT.authentication.principal.authorities as auth>
+                                        <#if auth.authority == "ROLE_USER">
+                                            <#assign isUser = true>
+                                        </#if>
+                                    </#list>
+                                </#if>
+
+                                <#if isGuest>
+                                    <%-- Неавторизованный — редирект на логин --%>
+                                    <a href="/auth/login"
+                                       class="btn btn-success btn-sm">
+                                        Забронировать
+                                    </a>
+                                <#elseif isUser>
+                                    <%-- USER — переход на выбор места --%>
+                                    <a href="/flights/${flight.id}"
+                                       class="btn btn-success btn-sm">
+                                        Забронировать
+                                    </a>
+                                <#else>
+                                    <%-- ADMIN / COMPANY — недоступна по заданию --%>
+                                    <button class="btn btn-secondary btn-sm" disabled>
+                                        Забронировать
+                                    </button>
+                                </#if>
                             </div>
 
                         </div>
