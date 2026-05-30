@@ -1,0 +1,444 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-admin
+      author: airline
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: 'admin'
+              - column:
+                  name: password
+                  value: '$2a$10$eN9JYQSM8f0S5CqGLX.X1.0H8p0i/S3M3L5RL7A8V6aKpX3Fy4Siy'
+              - column:
+                  name: full_name
+                  value: 'Administrator'
+              - column:
+                  name: role
+                  value: 'ADMIN'
+              - column:
+                  name: enabled
+                  valueBoolean: true
+
+  - changeSet:
+      id: insert-company-skyline
+      author: airline
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: 'skyline@airline.com'
+              - column:
+                  name: password
+
+                  value: '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lh3y'
+              - column:
+                  name: full_name
+                  value: 'Skyline Airways'
+              - column:
+                  name: role
+                  value: 'COMPANY'
+              - column:
+                  name: logo
+                  value: 'skyline.png'
+              - column:
+                  name: enabled
+                  valueBoolean: true
+
+  - changeSet:
+      id: insert-company-sunwing
+      author: airline
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: 'sunwing@airline.com'
+              - column:
+                  name: password
+                  value: '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lh3y'
+              - column:
+                  name: full_name
+                  value: 'SunWing Airlines'
+              - column:
+                  name: role
+                  value: 'COMPANY'
+              - column:
+                  name: logo
+                  value: 'sunwing.png'
+              - column:
+                  name: enabled
+                  valueBoolean: true
+
+  - changeSet:
+      id: insert-test-user
+      author: airline
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: 'user@test.com'
+              - column:
+                  name: password
+
+                  value: '$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk2Kq5K'
+              - column:
+                  name: full_name
+                  value: 'Test User'
+              - column:
+                  name: role
+                  value: 'USER'
+              - column:
+                  name: enabled
+                  valueBoolean: true
+
+  - changeSet:
+      id: insert-flight-1
+      author: airline
+      changes:
+        - insert:
+            tableName: flights
+            columns:
+              - column:
+                  name: flight_number
+                  value: 'SKY-001'
+              - column:
+                  name: company_id
+                  valueNumeric: 2
+              - column:
+                  name: departure_city
+                  value: 'Bishkek'
+              - column:
+                  name: arrival_city
+                  value: 'Moscow'
+              - column:
+                  name: departure_time
+                  valueDate: '2025-07-15 06:00:00'
+              - column:
+                  name: arrival_time
+                  valueDate: '2025-07-15 09:30:00'
+
+  - changeSet:
+      id: insert-flight-2
+      author: airline
+      changes:
+        - insert:
+            tableName: flights
+            columns:
+              - column:
+                  name: flight_number
+                  value: 'SUN-101'
+              - column:
+                  name: company_id
+                  valueNumeric: 3
+              - column:
+                  name: departure_city
+                  value: 'Moscow'
+              - column:
+                  name: arrival_city
+                  value: 'Dubai'
+              - column:
+                  name: departure_time
+                  valueDate: '2025-07-20 14:00:00'
+              - column:
+                  name: arrival_time
+                  valueDate: '2025-07-20 19:00:00'
+
+  - changeSet:
+      id: insert-flight-3
+      author: airline
+      changes:
+        - insert:
+            tableName: flights
+            columns:
+              - column:
+                  name: flight_number
+                  value: 'SKY-202'
+              - column:
+                  name: company_id
+                  valueNumeric: 2
+              - column:
+                  name: departure_city
+                  value: 'Bishkek'
+              - column:
+                  name: arrival_city
+                  value: 'Istanbul'
+              - column:
+                  name: departure_time
+                  valueDate: '2025-08-01 22:00:00'
+              - column:
+                  name: arrival_time
+                  valueDate: '2025-08-02 04:30:00'
+
+  - changeSet:
+      id: insert-tickets-flight-1
+      author: airline
+      changes:
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'A1' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 250.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'A2' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 250.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'A3' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 250.00 }
+              - column: { name: booked, valueBoolean: true }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'A4' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 250.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'A5' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 250.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'A6' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 250.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'A7' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 250.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'B1' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 750.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'B2' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 750.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 1 }
+              - column: { name: seat_number, value: 'B3' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 750.00 }
+              - column: { name: booked, valueBoolean: true }
+
+  - changeSet:
+      id: insert-tickets-flight-2
+      author: airline
+      changes:
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'A1' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 450.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'A2' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 450.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'A3' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 450.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'A4' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 450.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'A5' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 450.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'A6' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 450.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'A7' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 450.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'B1' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 1200.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'B2' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 1200.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 2 }
+              - column: { name: seat_number, value: 'B3' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 1200.00 }
+              - column: { name: booked, valueBoolean: false }
+
+  - changeSet:
+      id: insert-tickets-flight-3
+      author: airline
+      changes:
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'A1' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 380.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'A2' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 380.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'A3' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 380.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'A4' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 380.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'A5' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 380.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'A6' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 380.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'A7' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 380.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'B1' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 950.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'B2' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 950.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 3 }
+              - column: { name: seat_number, value: 'B3' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 950.00 }
+              - column: { name: booked, valueBoolean: false }
+
+  - changeSet:
+      id: insert-booking-test
+      author: airline
+      changes:
+        - insert:
+            tableName: bookings
+            columns:
+              - column: { name: user_id, valueNumeric: 4 }
+              - column: { name: ticket_id, valueNumeric: 3 }
+              - column: { name: booked_at, valueDate: '2025-06-01 10:00:00' }
