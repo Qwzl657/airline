@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/migrations/01_create_tables.yaml
+  - include:
+      file: db/changelog/migrations/02_insert_data.yaml
