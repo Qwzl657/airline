@@ -14,7 +14,6 @@ window.addEventListener('load', function () {
     const inputs = form.querySelectorAll('input');
     inputs.forEach(function (input) {
         input.addEventListener('input', function () {
-
             clearTimeout(searchTimer);
             searchTimer = setTimeout(function () {
                 performSearch(form, resultsContainer);
@@ -44,7 +43,6 @@ async function performSearch(form, container) {
         }
 
         const page = await response.json();
-
         renderResults(page, container);
 
     } catch (error) {
@@ -63,16 +61,17 @@ function renderResults(page, container) {
         return;
     }
 
-    const userRole = document.body.dataset.userRole || 'GUEST';
+    const userRole = container.dataset.userRole || 'GUEST';
 
     let html = '';
 
     page.content.forEach(function (flight) {
 
+        const logo = flight.companyLogo || 'default.png';
+
         const depTime = formatTime(flight.departureTime);
         const arrTime = formatTime(flight.arrivalTime);
         const depDate = formatDate(flight.departureTime);
-        const logo    = flight.companyLogo || 'default.png';
 
         let bookBtn = '';
         if (userRole === 'GUEST') {
@@ -87,7 +86,6 @@ function renderResults(page, container) {
                 'Забронировать' +
                 '</a>';
         } else {
-
             bookBtn =
                 '<button class="btn btn-secondary btn-sm" disabled>' +
                 'Забронировать' +
@@ -133,9 +131,7 @@ function renderResults(page, container) {
 
             '<div class="col-md-3 text-end d-flex flex-column gap-1">' +
             '<a href="/flights/' + flight.id + '"' +
-            ' class="btn btn-outline-primary btn-sm">' +
-            'Подробнее' +
-            '</a>' +
+            ' class="btn btn-outline-primary btn-sm">Подробнее</a>' +
             bookBtn +
             '</div>' +
 
