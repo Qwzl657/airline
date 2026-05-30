@@ -37,10 +37,10 @@ spring:
 
   freemarker:
     expose-session-attributes: true
+    expose-spring-macro-helpers: true
+    template-loader-path: classpath:/templates/
+    suffix: .ftlh
 
-  web:
-    resources:
-      add-mappings: false
 
 logging:
   level:

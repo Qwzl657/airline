@@ -16,35 +16,52 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-            .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth
 
-                .requestMatchers("/", "/flights", "/auth/**",
-                                 "/static/**", "/avatars/**").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/flights",
+                                "/flights/**",
+                                "/auth/**",
+                                "/static/**",
+                                "/uploads/**",
+                                "/h2-console/**"
+                        ).permitAll()
 
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
 
-                .requestMatchers("/company/**").hasRole("COMPANY")
+                        .requestMatchers("/company/**").hasRole("COMPANY")
 
-                .requestMatchers("/bookings/**", "/profile/**").hasRole("USER")
+                        .requestMatchers("/bookings/**").hasRole("USER")
 
-                .anyRequest().authenticated()
-            )
+                        .requestMatchers("/profile/**").authenticated()
 
-            .formLogin(form -> form
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login")
-                .defaultSuccessUrl("/flights", true)
-                .failureUrl("/auth/login?error=true")
-                .permitAll()
-            )
+                        .anyRequest().authenticated()
+                )
 
-            .logout(logout -> logout
-                .logoutUrl("/auth/logout")
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .permitAll()
-            );
+                .formLogin(form -> form
+                        .loginPage("/auth/login")
+                        .loginProcessingUrl("/auth/login")
+                        .defaultSuccessUrl("/flights", true)
+                        .failureUrl("/auth/login?error=true")
+                        .permitAll()
+                )
+
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .permitAll()
+                )
+
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/h2-console/**")
+                )
+
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin())
+                );
 
         return http.build();
     }
