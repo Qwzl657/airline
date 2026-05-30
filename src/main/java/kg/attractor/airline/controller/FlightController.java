@@ -43,8 +43,7 @@ public class FlightController {
             model.addAttribute("flightsPage", flightsPage);
         } catch (IllegalArgumentException e) {
             model.addAttribute("searchError", e.getMessage());
-            model.addAttribute("flightsPage",
-                    Page.empty(pageable));
+            model.addAttribute("flightsPage", Page.empty(pageable));
         }
 
         model.addAttribute("departureCity", departureCity);
@@ -83,10 +82,13 @@ public class FlightController {
             bookingService.book(ticketId, auth.getName());
             redirectAttrs.addFlashAttribute("bookingSuccess",
                     "Место успешно забронировано!");
+            return "redirect:/profile";
         } catch (Exception e) {
+            // ИСПРАВЛЕНО: получаем flightId из сервиса чтобы редиректить
+            // на страницу РЕЙСА, а не использовать ticketId как id рейса
             redirectAttrs.addFlashAttribute("bookingError", e.getMessage());
-            return "redirect:/flights/" + ticketId + "?error";
+            Long flightId = bookingService.getFlightIdByTicketId(ticketId);
+            return "redirect:/flights/" + flightId;
         }
-        return "redirect:/profile";
     }
 }

@@ -16,7 +16,7 @@
 
                     <#if RequestParameters.error??>
                         <div class="alert alert-danger">
-                            Неверный email или пароль.
+                            Неверный логин или пароль.
                         </div>
                     </#if>
 
@@ -26,9 +26,11 @@
                                value="${_csrf.token}"/>
 
                         <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="username"
-                                   class="form-control" required>
+                            <label class="form-label">Email / Логин</label>
+                            <input type="text" name="username"
+                                   class="form-control"
+                                   placeholder="email или логин"
+                                   required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Пароль</label>

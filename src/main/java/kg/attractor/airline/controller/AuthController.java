@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
 
     private final UserService userService;
-
+    
     @GetMapping("/login")
     public String loginPage() {
         return "auth/login";
