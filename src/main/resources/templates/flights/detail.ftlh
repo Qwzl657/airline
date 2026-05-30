@@ -2,19 +2,15 @@
 
 <@layout.base title="Рейс ${flight.flightNumber}">
 
-    <#if bookingError??>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            ${bookingError}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    </#if>
+    <#if bookingError??><div class="alert alert-danger alert-dismissible fade show">
+        ${bookingError}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div></#if>
 
-    <#if bookingSuccess??>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            ${bookingSuccess}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    </#if>
+    <#if bookingSuccess??><div class="alert alert-success alert-dismissible fade show">
+        ${bookingSuccess}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div></#if>
 
     <div class="card flight-card mb-4">
         <div class="card-body">
@@ -47,24 +43,55 @@
 
     <h5>Выберите место</h5>
 
+    <#assign isUser  = false>
+    <#assign isGuest = true>
+    <#if SPRING_SECURITY_CONTEXT??>
+        <#assign isGuest = false>
+        <#list SPRING_SECURITY_CONTEXT.authentication.principal.authorities as a>
+            <#if a.authority == "ROLE_USER">
+                <#assign isUser = true>
+            </#if>
+        </#list>
+    </#if>
+
+    <#if !isGuest && !isUser>
+        <div class="alert alert-warning">
+            Бронирование доступно только для обычных пользователей.
+        </div>
+    </#if>
+
     <#if flight.tickets?has_content>
 
         <h6 class="text-muted mt-3">🪑 Эконом</h6>
         <div class="d-flex flex-wrap mb-3">
             <#list flight.tickets as ticket>
                 <#if ticket.seatClass?string == "ECONOMY">
-                    <form action="/bookings/${ticket.id}" method="post">
-                        <input type="hidden"
-                               name="${_csrf.parameterName}"
-                               value="${_csrf.token}"/>
-                        <button type="submit"
-                                class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
-                                <#if ticket.booked>disabled</#if>
-                                <#if !userRole?? || userRole != "ROLE_USER">disabled</#if>>
+                    <#if isGuest>
+                        <a href="/auth/login"
+                           class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
+                           <#if ticket.booked>style="pointer-events:none;"</#if>>
+                            ${ticket.seatNumber}<br>
+                            <small>$${ticket.price?string.number}</small>
+                        </a>
+                    <#elseif isUser>
+                        <form action="/bookings/${ticket.id}" method="post">
+                            <input type="hidden"
+                                   name="${_csrf.parameterName}"
+                                   value="${_csrf.token}"/>
+                            <button type="submit"
+                                    class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
+                                    <#if ticket.booked>disabled</#if>>
+                                ${ticket.seatNumber}<br>
+                                <small>$${ticket.price?string.number}</small>
+                            </button>
+                        </form>
+                    <#else>
+                        <button class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
+                                disabled>
                             ${ticket.seatNumber}<br>
                             <small>$${ticket.price?string.number}</small>
                         </button>
-                    </form>
+                    </#if>
                 </#if>
             </#list>
         </div>
@@ -73,18 +100,32 @@
         <div class="d-flex flex-wrap mb-3">
             <#list flight.tickets as ticket>
                 <#if ticket.seatClass?string == "BUSINESS">
-                    <form action="/bookings/${ticket.id}" method="post">
-                        <input type="hidden"
-                               name="${_csrf.parameterName}"
-                               value="${_csrf.token}"/>
-                        <button type="submit"
-                                class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
-                                <#if ticket.booked>disabled</#if>
-                                <#if !userRole?? || userRole != "ROLE_USER">disabled</#if>>
+                    <#if isGuest>
+                        <a href="/auth/login"
+                           class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
+                           <#if ticket.booked>style="pointer-events:none;"</#if>>
+                            ${ticket.seatNumber}<br>
+                            <small>$${ticket.price?string.number}</small>
+                        </a>
+                    <#elseif isUser>
+                        <form action="/bookings/${ticket.id}" method="post">
+                            <input type="hidden"
+                                   name="${_csrf.parameterName}"
+                                   value="${_csrf.token}"/>
+                            <button type="submit"
+                                    class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
+                                    <#if ticket.booked>disabled</#if>>
+                                ${ticket.seatNumber}<br>
+                                <small>$${ticket.price?string.number}</small>
+                            </button>
+                        </form>
+                    <#else>
+                        <button class="btn seat-btn <#if ticket.booked>booked-seat<#else>free-seat</#if>"
+                                disabled>
                             ${ticket.seatNumber}<br>
                             <small>$${ticket.price?string.number}</small>
                         </button>
-                    </form>
+                    </#if>
                 </#if>
             </#list>
         </div>
@@ -92,12 +133,17 @@
         <div class="d-flex gap-3 mt-2">
             <span class="btn free-seat btn-sm disabled">Свободно</span>
             <span class="btn booked-seat btn-sm disabled">Занято</span>
-            <#if !userRole?? || userRole != "ROLE_USER">
+            <#if isGuest>
                 <span class="text-muted small align-self-center">
-                    Войдите как пользователь чтобы забронировать
+                    Войдите чтобы забронировать
+                </span>
+            <#elseif !isUser>
+                <span class="text-muted small align-self-center">
+                    Бронирование доступно только пользователям
                 </span>
             </#if>
         </div>
+
     </#if>
 
     <a href="/flights" class="btn btn-outline-secondary mt-3">← Назад к рейсам</a>
