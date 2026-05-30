@@ -11,6 +11,7 @@
                     <#if emailError??>
                         <div class="alert alert-danger">${emailError}</div>
                     </#if>
+
                     <form id="register-form" action="/auth/register" method="post">
                         <input type="hidden"
                                name="${_csrf.parameterName}"
@@ -19,10 +20,14 @@
                         <div class="mb-3">
                             <label class="form-label">Полное имя</label>
                             <input type="text" name="fullName"
-                                   class="form-control"
+                                   class="form-control <#if userCreateDto?? && (userCreateDto.fullName!'') == '' && emailError??>is-invalid</#if>"
                                    value="${userCreateDto.fullName!''}"
                                    placeholder="Иван Иванов">
-                            <div class="invalid-feedback"></div>
+                            <#if org?? && org.springframework??>
+                            </#if>
+                            <div class="invalid-feedback">
+                                Имя должно содержать минимум 2 символа и только буквы
+                            </div>
                         </div>
 
                         <div class="mb-3">

@@ -11,8 +11,7 @@ databaseChangeLog:
                   name: email
                   value: 'admin'
               - column:
-                  name: password
-                  #("admin")
+                  name: password #admin
                   value: '$2a$10$/BAcHNSIAvpQerpK6l5QVughJBTaVJVAFQ24mb3Cvm6zLC5bie.qG'
               - column:
                   name: full_name
@@ -35,8 +34,7 @@ databaseChangeLog:
                   name: email
                   value: 'skyline@airline.com'
               - column:
-                  name: password
-                  #("password")
+                  name: password #password
                   value: '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG'
               - column:
                   name: full_name
@@ -62,8 +60,7 @@ databaseChangeLog:
                   name: email
                   value: 'sunwing@airline.com'
               - column:
-                  name: password
-                  #("password")
+                  name: password #password
                   value: '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG'
               - column:
                   name: full_name
@@ -89,8 +86,7 @@ databaseChangeLog:
                   name: email
                   value: 'user@test.com'
               - column:
-                  name: password
-                  #("user123")
+                  name: password #user123
                   value: '$2a$10$YuW0B3zOAZvJCC7Cvph5g.YnYczd9OqG0WWu985tPL2AiUWR26mlm'
               - column:
                   name: full_name
@@ -114,7 +110,7 @@ databaseChangeLog:
                   value: 'SKY-001'
               - column:
                   name: company_id
-                  valueNumeric: 2
+                  valueComputed: "(SELECT id FROM users WHERE email = 'skyline@airline.com')"
               - column:
                   name: departure_city
                   value: 'Bishkek'
@@ -140,7 +136,7 @@ databaseChangeLog:
                   value: 'SUN-101'
               - column:
                   name: company_id
-                  valueNumeric: 3
+                  valueComputed: "(SELECT id FROM users WHERE email = 'sunwing@airline.com')"
               - column:
                   name: departure_city
                   value: 'Moscow'
@@ -166,7 +162,7 @@ databaseChangeLog:
                   value: 'SKY-202'
               - column:
                   name: company_id
-                  valueNumeric: 2
+                  valueComputed: "(SELECT id FROM users WHERE email = 'skyline@airline.com')"
               - column:
                   name: departure_city
                   value: 'Bishkek'
@@ -192,7 +188,7 @@ databaseChangeLog:
                   value: 'SUN-205'
               - column:
                   name: company_id
-                  valueNumeric: 3
+                  valueComputed: "(SELECT id FROM users WHERE email = 'sunwing@airline.com')"
               - column:
                   name: departure_city
                   value: 'Bishkek'
@@ -213,83 +209,103 @@ databaseChangeLog:
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'A1' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 250.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 250.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'A2' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 250.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 250.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'A3' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 250.00 }
-              - column: { name: booked, valueBoolean: true }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 250.00 }
+              - column: { name: booked,      valueBoolean: true }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'A4' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 250.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 250.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'A5' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 250.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 250.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'A6' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 250.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 250.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'A7' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 250.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 250.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'B1' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 750.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 750.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'B2' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 750.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 750.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 1 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-001')"
               - column: { name: seat_number, value: 'B3' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 750.00 }
-              - column: { name: booked, valueBoolean: true }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 750.00 }
+              - column: { name: booked,      valueBoolean: true }
 
   - changeSet:
       id: insert-tickets-flight-2
@@ -298,83 +314,103 @@ databaseChangeLog:
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'A1' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 450.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 450.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'A2' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 450.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 450.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'A3' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 450.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 450.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'A4' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 450.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 450.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'A5' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 450.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 450.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'A6' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 450.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 450.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'A7' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 450.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 450.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'B1' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 1200.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 1200.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'B2' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 1200.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 1200.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 2 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-101')"
               - column: { name: seat_number, value: 'B3' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 1200.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 1200.00 }
+              - column: { name: booked,      valueBoolean: false }
 
   - changeSet:
       id: insert-tickets-flight-3
@@ -383,83 +419,103 @@ databaseChangeLog:
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'A1' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 380.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 380.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'A2' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 380.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 380.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'A3' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 380.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 380.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'A4' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 380.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 380.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'A5' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 380.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 380.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'A6' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 380.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 380.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'A7' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 380.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 380.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'B1' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 950.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 950.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'B2' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 950.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 950.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 3 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SKY-202')"
               - column: { name: seat_number, value: 'B3' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 950.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 950.00 }
+              - column: { name: booked,      valueBoolean: false }
 
   - changeSet:
       id: insert-tickets-flight-4
@@ -468,83 +524,103 @@ databaseChangeLog:
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'A1' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 180.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 180.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'A2' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 180.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 180.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'A3' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 180.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 180.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'A4' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 180.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 180.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'A5' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 180.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 180.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'A6' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 180.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 180.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'A7' }
-              - column: { name: seat_class, value: 'ECONOMY' }
-              - column: { name: price, valueNumeric: 180.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'ECONOMY' }
+              - column: { name: price,       valueNumeric: 180.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'B1' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 500.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 500.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'B2' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 500.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 500.00 }
+              - column: { name: booked,      valueBoolean: false }
         - insert:
             tableName: tickets
             columns:
-              - column: { name: flight_id, valueNumeric: 4 }
+              - column:
+                  name: flight_id
+                  valueComputed: "(SELECT id FROM flights WHERE flight_number = 'SUN-205')"
               - column: { name: seat_number, value: 'B3' }
-              - column: { name: seat_class, value: 'BUSINESS' }
-              - column: { name: price, valueNumeric: 500.00 }
-              - column: { name: booked, valueBoolean: false }
+              - column: { name: seat_class,  value: 'BUSINESS' }
+              - column: { name: price,       valueNumeric: 500.00 }
+              - column: { name: booked,      valueBoolean: false }
 
   - changeSet:
       id: insert-booking-test
@@ -553,6 +629,12 @@ databaseChangeLog:
         - insert:
             tableName: bookings
             columns:
-              - column: { name: user_id, valueNumeric: 4 }
-              - column: { name: ticket_id, valueNumeric: 3 }
-              - column: { name: booked_at, valueDate: '2026-06-01 10:00:00' }
+              - column:
+                  name: user_id
+                  valueComputed: "(SELECT id FROM users WHERE email = 'user@test.com')"
+              - column:
+                  name: ticket_id
+                  valueComputed: "(SELECT id FROM tickets WHERE flight_id = (SELECT id FROM flights WHERE flight_number = 'SKY-001') AND seat_number = 'A3')"
+              - column:
+                  name: booked_at
+                  valueDate: '2026-06-01 10:00:00'

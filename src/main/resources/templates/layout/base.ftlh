@@ -43,6 +43,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="/company/flights">Мои рейсы</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/profile">Профиль</a>
+                                </li>
                             </#if>
 
                             <#if authority.authority == "ROLE_USER">
@@ -54,9 +57,9 @@
                         </#list>
 
                         <li class="nav-item">
-                        <span class="nav-link text-muted small">
-                            ${principal.username}
-                        </span>
+                            <span class="nav-link text-muted small">
+                                ${principal.username}
+                            </span>
                         </li>
 
                         <li class="nav-item">

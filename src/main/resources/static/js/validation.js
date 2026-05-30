@@ -16,7 +16,6 @@ window.addEventListener('load', function () {
 function initRegisterValidation(form) {
 
     form.addEventListener('submit', function (e) {
-
         e.preventDefault();
 
         clearErrors(form);
@@ -26,21 +25,35 @@ function initRegisterValidation(form) {
         const email    = form.querySelector('[name="email"]');
         const password = form.querySelector('[name="password"]');
 
-        if (!fullName.value.trim() || fullName.value.trim().length < 2) {
+        const nameRegex = /^[^\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?0-9]+$/;
+
+        if (!fullName.value.trim()) {
+            showError(fullName, 'Введите ваше имя');
+            valid = false;
+        } else if (fullName.value.trim().length < 2) {
             showError(fullName, 'Имя должно содержать минимум 2 символа');
             valid = false;
         } else if (fullName.value.trim().length > 100) {
             showError(fullName, 'Имя не должно превышать 100 символов');
             valid = false;
+        } else if (!nameRegex.test(fullName.value.trim())) {
+            showError(fullName, 'Имя может содержать только буквы и пробелы');
+            valid = false;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+        if (!email.value.trim()) {
+            showError(email, 'Введите email');
+            valid = false;
+        } else if (!emailRegex.test(email.value.trim())) {
             showError(email, 'Введите корректный email');
             valid = false;
         }
 
-        if (!password.value || password.value.length < 6) {
+        if (!password.value) {
+            showError(password, 'Введите пароль');
+            valid = false;
+        } else if (password.value.length < 6) {
             showError(password, 'Пароль должен содержать минимум 6 символов');
             valid = false;
         }
@@ -101,13 +114,14 @@ function initFlightValidation(form) {
             showError(arrivalTime, 'Укажите дату и время прилёта');
             valid = false;
         } else if (departureTime.value) {
-            const depDate = new Date(departureTime.value);
-            const arrDate = new Date(arrivalTime.value);
+            const depDate   = new Date(departureTime.value);
+            const arrDate   = new Date(arrivalTime.value);
 
             if (arrDate <= depDate) {
                 showError(arrivalTime, 'Время прилёта должно быть позже времени вылета');
                 valid = false;
             }
+
 
             const diffHours = (arrDate - depDate) / (1000 * 60 * 60);
             if (diffHours > 48) {
@@ -124,11 +138,9 @@ function initFlightValidation(form) {
 
 function showError(input, message) {
     input.classList.add('is-invalid');
-
     const div = document.createElement('div');
     div.classList.add('invalid-feedback');
     div.innerText = message;
-
     input.after(div);
 }
 
