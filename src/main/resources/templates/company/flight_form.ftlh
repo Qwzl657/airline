@@ -12,7 +12,8 @@
                         <div class="alert alert-danger">${flightError}</div>
                     </#if>
 
-                    <form action="/company/flights/new" method="post">
+                    <%-- id="flight-form" — для поиска через getElementById (Lesson #66) --%>
+                    <form id="flight-form" action="/company/flights/new" method="post">
                         <input type="hidden"
                                name="${_csrf.parameterName}"
                                value="${_csrf.token}"/>
@@ -22,28 +23,33 @@
                             <input type="text" name="departureCity"
                                    class="form-control"
                                    value="${flightCreateDto.departureCity!''}"
-                                   required>
+                                   placeholder="Bishkek">
+                            <div class="invalid-feedback"></div>
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label">Город прилёта</label>
                             <input type="text" name="arrivalCity"
                                    class="form-control"
                                    value="${flightCreateDto.arrivalCity!''}"
-                                   required>
+                                   placeholder="Moscow">
+                            <div class="invalid-feedback"></div>
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label">Дата и время вылета</label>
                             <input type="datetime-local" name="departureTime"
                                    class="form-control"
-                                   value="${flightCreateDto.departureTime!''}"
-                                   required>
+                                   value="${flightCreateDto.departureTime!''}">
+                            <div class="invalid-feedback"></div>
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label">Дата и время прилёта</label>
                             <input type="datetime-local" name="arrivalTime"
                                    class="form-control"
-                                   value="${flightCreateDto.arrivalTime!''}"
-                                   required>
+                                   value="${flightCreateDto.arrivalTime!''}">
+                            <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="d-flex gap-2">
@@ -61,5 +67,8 @@
             </div>
         </div>
     </div>
+
+    <%-- Lesson #66: подключаем JS валидацию --%>
+    <script src="/static/js/validation.js"></script>
 
 </@layout.base>

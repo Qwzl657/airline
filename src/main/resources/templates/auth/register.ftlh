@@ -12,7 +12,8 @@
                         <div class="alert alert-danger">${emailError}</div>
                     </#if>
 
-                    <form action="/auth/register" method="post">
+                    <%-- id="register-form" — для поиска через getElementById (Lesson #66) --%>
+                    <form id="register-form" action="/auth/register" method="post">
                         <input type="hidden"
                                name="${_csrf.parameterName}"
                                value="${_csrf.token}"/>
@@ -20,29 +21,28 @@
                         <div class="mb-3">
                             <label class="form-label">Полное имя</label>
                             <input type="text" name="fullName"
-                                   class="form-control
-                               <#if userCreateDto.fullName??
-                                   && (userCreateDto.fullName?length < 2
-                                   || userCreateDto.fullName?length > 100)>
-                                    is-invalid</#if>"
-                                   value="${userCreateDto.fullName!''}" required>
-                            <div class="invalid-feedback">
-                                Имя: от 2 до 100 символов
-                            </div>
+                                   class="form-control"
+                                   value="${userCreateDto.fullName!''}"
+                                   placeholder="Иван Иванов">
+                            <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Email</label>
                             <input type="email" name="email"
                                    class="form-control"
-                                   value="${userCreateDto.email!''}" required>
+                                   value="${userCreateDto.email!''}"
+                                   placeholder="example@mail.com">
+                            <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Пароль</label>
                             <input type="password" name="password"
-                                   class="form-control" required>
+                                   class="form-control"
+                                   placeholder="Минимум 6 символов">
                             <div class="form-text">Минимум 6 символов</div>
+                            <div class="invalid-feedback"></div>
                         </div>
 
                         <button type="submit"
@@ -60,5 +60,8 @@
             </div>
         </div>
     </div>
+
+    <%-- Lesson #66: подключаем JS валидацию --%>
+    <script src="/static/js/validation.js"></script>
 
 </@layout.base>
