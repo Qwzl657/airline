@@ -5,7 +5,9 @@
     <div class="card mb-4 flight-card">
         <div class="card-body">
             <h5 class="card-title">Поиск рейсов</h5>
-            <form action="/flights" method="get">
+
+            <%-- id="search-form" — нужен для поиска через document.getElementById (Lesson #66) --%>
+            <form id="search-form" action="/flights" method="get">
                 <div class="row g-2">
                     <div class="col-md-3">
                         <input type="text" name="departureCity"
@@ -128,5 +130,8 @@
     <#else>
         <div class="alert alert-info">Рейсы не найдены. Попробуйте изменить параметры поиска.</div>
     </#if>
+
+    <%-- Lesson #70: подключаем JS файл с логикой localStorage --%>
+    <script src="/static/js/search.js"></script>
 
 </@layout.base>
