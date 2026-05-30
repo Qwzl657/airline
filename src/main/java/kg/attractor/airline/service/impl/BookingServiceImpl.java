@@ -86,7 +86,7 @@ public class BookingServiceImpl implements BookingService {
     public Long getFlightIdByTicketId(Long ticketId) {
         return ticketRepository.findById(ticketId)
                 .map(t -> t.getFlight().getId())
-                .orElse(1L); // fallback на главную если билет не найден
+                .orElse(1L);
     }
 
     private BookingDto toDto(Booking booking) {

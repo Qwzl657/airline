@@ -1,6 +1,3 @@
-// Источник: конспект ЧАСТЬ 2.4 — фильтрация, Pageable
-// Даты строками — парсинг в сервисе
-
 package kg.attractor.airline.dto;
 
 import lombok.*;

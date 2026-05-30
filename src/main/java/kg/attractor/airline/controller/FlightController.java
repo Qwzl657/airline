@@ -84,8 +84,6 @@ public class FlightController {
                     "Место успешно забронировано!");
             return "redirect:/profile";
         } catch (Exception e) {
-            // ИСПРАВЛЕНО: получаем flightId из сервиса чтобы редиректить
-            // на страницу РЕЙСА, а не использовать ticketId как id рейса
             redirectAttrs.addFlashAttribute("bookingError", e.getMessage());
             Long flightId = bookingService.getFlightIdByTicketId(ticketId);
             return "redirect:/flights/" + flightId;
