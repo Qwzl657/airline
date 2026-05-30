@@ -82,6 +82,13 @@ public class BookingServiceImpl implements BookingService {
                 .toList();
     }
 
+    @Override
+    public Long getFlightIdByTicketId(Long ticketId) {
+        return ticketRepository.findById(ticketId)
+                .map(t -> t.getFlight().getId())
+                .orElse(1L); // fallback на главную если билет не найден
+    }
+
     private BookingDto toDto(Booking booking) {
         Ticket ticket = booking.getTicket();
         return BookingDto.builder()

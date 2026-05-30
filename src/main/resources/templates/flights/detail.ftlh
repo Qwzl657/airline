@@ -2,6 +2,20 @@
 
 <@layout.base title="Рейс ${flight.flightNumber}">
 
+    <#if bookingError??>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            ${bookingError}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </#if>
+
+    <#if bookingSuccess??>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ${bookingSuccess}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </#if>
+
     <div class="card flight-card mb-4">
         <div class="card-body">
             <div class="d-flex align-items-center gap-3 mb-3">

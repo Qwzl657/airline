@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
@@ -36,10 +37,15 @@ public class FlightController {
         Pageable pageable = PageRequest.of(
                 page, size, Sort.by("departureTime").ascending());
 
-        Page<FlightDto> flightsPage = flightService.searchFlights(
-                departureCity, arrivalCity, dateFrom, dateTo, pageable);
+        try {
+            Page<FlightDto> flightsPage = flightService.searchFlights(
+                    departureCity, arrivalCity, dateFrom, dateTo, pageable);
+            model.addAttribute("flightsPage", flightsPage);
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("searchError", e.getMessage());
+            model.addAttribute("flightsPage", Page.empty(pageable));
+        }
 
-        model.addAttribute("flightsPage", flightsPage);
         model.addAttribute("departureCity", departureCity);
         model.addAttribute("arrivalCity", arrivalCity);
         model.addAttribute("dateFrom", dateFrom);
@@ -70,8 +76,19 @@ public class FlightController {
 
     @PostMapping("/bookings/{ticketId}")
     public String bookTicket(@PathVariable Long ticketId,
-                             Authentication auth) {
-        bookingService.book(ticketId, auth.getName());
-        return "redirect:/profile";
+                             Authentication auth,
+                             RedirectAttributes redirectAttrs) {
+        try {
+            bookingService.book(ticketId, auth.getName());
+            redirectAttrs.addFlashAttribute("bookingSuccess",
+                    "Место успешно забронировано!");
+            return "redirect:/profile";
+        } catch (Exception e) {
+            // ИСПРАВЛЕНО: получаем flightId из сервиса чтобы редиректить
+            // на страницу РЕЙСА, а не использовать ticketId как id рейса
+            redirectAttrs.addFlashAttribute("bookingError", e.getMessage());
+            Long flightId = bookingService.getFlightIdByTicketId(ticketId);
+            return "redirect:/flights/" + flightId;
+        }
     }
 }

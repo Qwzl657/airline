@@ -1,4 +1,5 @@
 databaseChangeLog:
+
   - changeSet:
       id: insert-admin
       author: airline
@@ -11,7 +12,8 @@ databaseChangeLog:
                   value: 'admin'
               - column:
                   name: password
-                  value: '$2a$10$eN9JYQSM8f0S5CqGLX.X1.0H8p0i/S3M3L5RL7A8V6aKpX3Fy4Siy'
+                  #("admin")
+                  value: '$2a$10$/BAcHNSIAvpQerpK6l5QVughJBTaVJVAFQ24mb3Cvm6zLC5bie.qG'
               - column:
                   name: full_name
                   value: 'Administrator'
@@ -34,8 +36,8 @@ databaseChangeLog:
                   value: 'skyline@airline.com'
               - column:
                   name: password
-
-                  value: '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lh3y'
+                  #("password")
+                  value: '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG'
               - column:
                   name: full_name
                   value: 'Skyline Airways'
@@ -61,7 +63,8 @@ databaseChangeLog:
                   value: 'sunwing@airline.com'
               - column:
                   name: password
-                  value: '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lh3y'
+                  #("password")
+                  value: '$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG'
               - column:
                   name: full_name
                   value: 'SunWing Airlines'
@@ -87,8 +90,8 @@ databaseChangeLog:
                   value: 'user@test.com'
               - column:
                   name: password
-
-                  value: '$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk2Kq5K'
+                  #("user123")
+                  value: '$2a$10$YuW0B3zOAZvJCC7Cvph5g.YnYczd9OqG0WWu985tPL2AiUWR26mlm'
               - column:
                   name: full_name
                   value: 'Test User'
@@ -120,10 +123,10 @@ databaseChangeLog:
                   value: 'Moscow'
               - column:
                   name: departure_time
-                  valueDate: '2025-07-15 06:00:00'
+                  valueDate: '2026-08-15 06:00:00'
               - column:
                   name: arrival_time
-                  valueDate: '2025-07-15 09:30:00'
+                  valueDate: '2026-08-15 09:30:00'
 
   - changeSet:
       id: insert-flight-2
@@ -146,10 +149,10 @@ databaseChangeLog:
                   value: 'Dubai'
               - column:
                   name: departure_time
-                  valueDate: '2025-07-20 14:00:00'
+                  valueDate: '2026-08-20 14:00:00'
               - column:
                   name: arrival_time
-                  valueDate: '2025-07-20 19:00:00'
+                  valueDate: '2026-08-20 19:00:00'
 
   - changeSet:
       id: insert-flight-3
@@ -172,10 +175,36 @@ databaseChangeLog:
                   value: 'Istanbul'
               - column:
                   name: departure_time
-                  valueDate: '2025-08-01 22:00:00'
+                  valueDate: '2026-09-01 22:00:00'
               - column:
                   name: arrival_time
-                  valueDate: '2025-08-02 04:30:00'
+                  valueDate: '2026-09-02 04:30:00'
+
+  - changeSet:
+      id: insert-flight-4
+      author: airline
+      changes:
+        - insert:
+            tableName: flights
+            columns:
+              - column:
+                  name: flight_number
+                  value: 'SUN-205'
+              - column:
+                  name: company_id
+                  valueNumeric: 3
+              - column:
+                  name: departure_city
+                  value: 'Bishkek'
+              - column:
+                  name: arrival_city
+                  value: 'Almaty'
+              - column:
+                  name: departure_time
+                  valueDate: '2026-09-10 08:00:00'
+              - column:
+                  name: arrival_time
+                  valueDate: '2026-09-10 10:00:00'
 
   - changeSet:
       id: insert-tickets-flight-1
@@ -433,6 +462,91 @@ databaseChangeLog:
               - column: { name: booked, valueBoolean: false }
 
   - changeSet:
+      id: insert-tickets-flight-4
+      author: airline
+      changes:
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'A1' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 180.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'A2' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 180.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'A3' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 180.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'A4' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 180.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'A5' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 180.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'A6' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 180.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'A7' }
+              - column: { name: seat_class, value: 'ECONOMY' }
+              - column: { name: price, valueNumeric: 180.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'B1' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 500.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'B2' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 500.00 }
+              - column: { name: booked, valueBoolean: false }
+        - insert:
+            tableName: tickets
+            columns:
+              - column: { name: flight_id, valueNumeric: 4 }
+              - column: { name: seat_number, value: 'B3' }
+              - column: { name: seat_class, value: 'BUSINESS' }
+              - column: { name: price, valueNumeric: 500.00 }
+              - column: { name: booked, valueBoolean: false }
+
+  - changeSet:
       id: insert-booking-test
       author: airline
       changes:
@@ -441,4 +555,4 @@ databaseChangeLog:
             columns:
               - column: { name: user_id, valueNumeric: 4 }
               - column: { name: ticket_id, valueNumeric: 3 }
-              - column: { name: booked_at, valueDate: '2025-06-01 10:00:00' }
+              - column: { name: booked_at, valueDate: '2026-06-01 10:00:00' }

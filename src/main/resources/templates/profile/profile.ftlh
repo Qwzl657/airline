@@ -7,6 +7,18 @@
             <div class="card shadow-sm mb-3">
                 <div class="card-body text-center">
 
+                    <#if RequestParameters.error??>
+                        <div class="alert alert-danger alert-sm">
+                            <#if RequestParameters.error == "emptyFile">
+                                Выберите файл для загрузки
+                            <#elseif RequestParameters.error == "invalidFormat">
+                                Допустимые форматы: PNG, JPG, GIF
+                            <#else>
+                                Ошибка загрузки файла
+                            </#if>
+                        </div>
+                    </#if>
+
                     <#if user.role?string == "COMPANY">
                         <img src="/uploads/logos/${user.logo!'default.png'}"
                              alt="Логотип"
@@ -40,6 +52,12 @@
 
             <#if user.role?string == "USER">
                 <h5>История бронирований</h5>
+
+                <#if RequestParameters.bookingError??>
+                    <div class="alert alert-danger">
+                        ${RequestParameters.bookingError}
+                    </div>
+                </#if>
 
                 <#if bookings?has_content>
                     <#list bookings as b>
